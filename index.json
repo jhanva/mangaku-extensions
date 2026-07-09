@@ -44,15 +44,15 @@
     "pkg": "com.mangaku.extension.en.mangakakalot",
     "apk": "com.mangaku.extension.en.mangakakalot.apk",
     "lang": "en",
-    "code": 1,
-    "version": "1.0.0",
+    "code": 2,
+    "version": "1.0.1",
     "nsfw": 0,
     "sources": [
       {
         "id": "mangakakalot",
         "name": "Mangakakalot",
         "lang": "en",
-        "baseUrl": "https://www.mangakakalot.gg"
+        "baseUrl": "https://www.mangakakalove.com"
       }
     ]
   },
@@ -61,15 +61,15 @@
     "pkg": "com.mangaku.extension.en.manganato",
     "apk": "com.mangaku.extension.en.manganato.apk",
     "lang": "en",
-    "code": 1,
-    "version": "1.0.0",
+    "code": 2,
+    "version": "1.0.1",
     "nsfw": 0,
     "sources": [
       {
         "id": "manganato",
         "name": "Manganato",
         "lang": "en",
-        "baseUrl": "https://www.natomanga.com"
+        "baseUrl": "https://www.manganato.gg"
       }
     ]
   },
@@ -78,8 +78,8 @@
     "pkg": "com.mangaku.extension.mangaread",
     "apk": "com.mangaku.extension.mangaread.apk",
     "lang": "en",
-    "code": 1,
-    "version": "1.0.0",
+    "code": 2,
+    "version": "1.0.1",
     "nsfw": 0,
     "sources": [
       {
