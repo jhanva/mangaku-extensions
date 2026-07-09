@@ -1,0 +1,16 @@
+{
+  "name": "InManga",
+  "pkg": "com.mangaku.extension.es.inmanga",
+  "lang": "es",
+  "code": 1,
+  "version": "1.0.0",
+  "nsfw": 0,
+  "sources": [
+    {
+      "id": "inmanga",
+      "name": "InManga",
+      "lang": "es",
+      "baseUrl": "https://inmanga.com"
+    }
+  ]
+}

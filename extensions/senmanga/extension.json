@@ -1,0 +1,16 @@
+{
+  "name": "SenManga (Raw)",
+  "pkg": "com.mangaku.extension.ja.senmanga",
+  "lang": "ja",
+  "code": 1,
+  "version": "1.0.1",
+  "nsfw": 0,
+  "sources": [
+    {
+      "id": "senmanga",
+      "name": "SenManga (Raw)",
+      "lang": "ja",
+      "baseUrl": "https://raw.senmanga.com"
+    }
+  ]
+}

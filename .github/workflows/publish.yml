@@ -1,0 +1,86 @@
+# Compila, firma y publica el catalogo de extensiones (apk/ + index.min.json) en la raiz de ESTE
+# mismo repositorio. La app lo consume desde:
+#   https://raw.githubusercontent.com/jhanva/mangaku-extensions/main
+#
+# Los APKs se compilan en RELEASE y se firman con el keystore de confianza (el mismo cuyo SHA-256 esta
+# registrado en la app anfitriona, ExtensionModule.TRUSTED_SIGNATURE_HASHES). Al vivir el CI en el
+# propio repo, publica con el GITHUB_TOKEN por defecto (no hace falta un PAT externo).
+#
+# Secrets requeridos:
+#   EXTENSIONS_KEYSTORE_BASE64  -> el keystore .jks codificado en base64
+#   EXTENSIONS_STORE_PASSWORD   -> contrasena del keystore
+#   EXTENSIONS_KEY_ALIAS        -> alias de la clave (p. ej. "mangaku")
+#   EXTENSIONS_KEY_PASSWORD     -> contrasena de la clave
+name: publish
+
+on:
+  push:
+    branches: [main]
+    paths:
+      # Solo se dispara cuando cambia el CODIGO fuente; el commit del catalogo (apk/, index*) no
+      # vuelve a disparar el workflow, evitando un bucle.
+      - "extensions/**"
+      - "lib-multisrc/**"
+      - "core/**"
+      - "scripts/generate_extensions_index.py"
+      - ".github/workflows/publish.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: publish
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Decode signing keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.EXTENSIONS_KEYSTORE_BASE64 }}
+        run: echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/extensions-keystore.jks"
+
+      - name: Build extension APKs (release, signed)
+        env:
+          MANGAKU_STORE_FILE: ${{ runner.temp }}/extensions-keystore.jks
+          MANGAKU_STORE_PASSWORD: ${{ secrets.EXTENSIONS_STORE_PASSWORD }}
+          MANGAKU_KEY_ALIAS: ${{ secrets.EXTENSIONS_KEY_ALIAS }}
+          MANGAKU_KEY_PASSWORD: ${{ secrets.EXTENSIONS_KEY_PASSWORD }}
+        run: >-
+          ./gradlew
+          :extensions:weebcentral:assembleRelease
+          :extensions:senmanga:assembleRelease
+          :extensions:comick:assembleRelease
+          :extensions:mangaread:assembleRelease
+          :extensions:manganato:assembleRelease
+          :extensions:mangakakalot:assembleRelease
+          :extensions:inmanga:assembleRelease
+
+      - name: Generate catalog index
+        run: python scripts/generate_extensions_index.py --variant release --output "$RUNNER_TEMP/catalog"
+
+      - name: Commit catalog to main
+        run: |
+          rm -rf apk
+          cp -r "$RUNNER_TEMP/catalog/apk" apk
+          cp "$RUNNER_TEMP/catalog/index.json" "$RUNNER_TEMP/catalog/index.min.json" .
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add apk index.json index.min.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios en el catalogo."
+          else
+            git commit -m "chore: publicar catalogo desde $GITHUB_SHA [skip ci]"
+            git push
+          fi

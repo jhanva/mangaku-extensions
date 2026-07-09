@@ -1,0 +1,16 @@
+{
+  "name": "Mangakakalot",
+  "pkg": "com.mangaku.extension.en.mangakakalot",
+  "lang": "en",
+  "code": 1,
+  "version": "1.0.0",
+  "nsfw": 0,
+  "sources": [
+    {
+      "id": "mangakakalot",
+      "name": "Mangakakalot",
+      "lang": "en",
+      "baseUrl": "https://www.mangakakalot.gg"
+    }
+  ]
+}

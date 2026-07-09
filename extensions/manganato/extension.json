@@ -1,0 +1,16 @@
+{
+  "name": "Manganato",
+  "pkg": "com.mangaku.extension.en.manganato",
+  "lang": "en",
+  "code": 1,
+  "version": "1.0.0",
+  "nsfw": 0,
+  "sources": [
+    {
+      "id": "manganato",
+      "name": "Manganato",
+      "lang": "en",
+      "baseUrl": "https://www.natomanga.com"
+    }
+  ]
+}

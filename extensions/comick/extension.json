@@ -1,0 +1,12 @@
+{
+  "name": "ComicK",
+  "pkg": "com.mangaku.extension.comick",
+  "lang": "all",
+  "code": 2,
+  "version": "1.0.1",
+  "nsfw": 0,
+  "sources": [
+    { "id": "comick-en", "name": "ComicK", "lang": "en", "baseUrl": "https://comick.dev" },
+    { "id": "comick-es", "name": "ComicK", "lang": "es", "baseUrl": "https://comick.dev" }
+  ]
+}

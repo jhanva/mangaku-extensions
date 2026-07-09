@@ -1,0 +1,26 @@
+# Gradle
+.gradle/
+build/
+.kotlin/
+
+# Local config
+local.properties
+
+# Android Studio / IntelliJ
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Keystore (el certificado de firma nunca se versiona)
+*.jks
+*.keystore
+keystore.properties
+
+# Nota: el catalogo publicado (apk/ e index en la raiz) SI se versiona; solo se ignoran los
+# artefactos de build bajo */build/.
+
+# Logs
+*.log

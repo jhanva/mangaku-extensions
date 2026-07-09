@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- APK de extension: sin actividades. La app anfitriona lo carga con PathClassLoader y lee
+         la clase de entrada de este metadato (mismo mecanismo que Mihon/Tachiyomi). -->
+    <application android:label="WeebCentral">
+        <meta-data
+            android:name="tachiyomi.extension.class"
+            android:value="com.mangaku.extension.weebcentral.WeebCentral" />
+    </application>
+</manifest>

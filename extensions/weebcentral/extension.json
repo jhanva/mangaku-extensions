@@ -1,0 +1,16 @@
+{
+  "name": "WeebCentral",
+  "pkg": "com.mangaku.extension.en.weebcentral",
+  "lang": "en",
+  "code": 1,
+  "version": "1.0.1",
+  "nsfw": 0,
+  "sources": [
+    {
+      "id": "weebcentral",
+      "name": "WeebCentral",
+      "lang": "en",
+      "baseUrl": "https://weebcentral.com"
+    }
+  ]
+}
