@@ -148,7 +148,8 @@ abstract class Madara(
     override fun chapterFromElement(element: Element): SChapter = SChapter.create().apply {
         element.selectFirst("a")!!.let { link ->
             val href = link.attr("abs:href").substringBefore("?style=paged")
-            url = if (href.endsWith(chapterUrlSuffix)) href else href + chapterUrlSuffix
+            // Sin dominio: HttpSource antepone baseUrl al construir las peticiones.
+            setUrlWithoutDomain(if (href.endsWith(chapterUrlSuffix)) href else href + chapterUrlSuffix)
             name = link.text()
         }
         date_upload = parseChapterDate(element.selectFirst("span.chapter-release-date")?.text())
@@ -158,6 +159,15 @@ abstract class Madara(
 
     protected open val pageListSelector =
         "div.page-break img, li.blocks-gallery-item img, .reading-content img"
+
+    /** Capitulos guardados por versiones previas llevan la URL absoluta; no hay que anteponer baseUrl. */
+    override fun pageListRequest(chapter: SChapter): Request {
+        if (chapter.url.startsWith("http")) return GET(chapter.url, headers)
+        return super.pageListRequest(chapter)
+    }
+
+    override fun getChapterUrl(chapter: SChapter): String =
+        if (chapter.url.startsWith("http")) chapter.url else super.getChapterUrl(chapter)
 
     override fun pageListParse(response: Response): List<Page> {
         val document = response.asJsoup()

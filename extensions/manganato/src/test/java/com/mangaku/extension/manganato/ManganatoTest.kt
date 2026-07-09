@@ -23,7 +23,7 @@ class ManganatoTest {
         }
     }
 
-    private val baseUrl = "https://www.natomanga.com"
+    private val baseUrl = "https://www.manganato.gg"
     private fun source() = Manganato()
 
     private fun htmlResponse(url: String, html: String): Response = Response.Builder()

@@ -2,10 +2,15 @@
   "name": "MangaRead",
   "pkg": "com.mangaku.extension.mangaread",
   "lang": "en",
-  "code": 1,
-  "version": "1.0.0",
+  "code": 2,
+  "version": "1.0.1",
   "nsfw": 0,
   "sources": [
-    { "id": "mangaread", "name": "MangaRead", "lang": "en", "baseUrl": "https://www.mangaread.org" }
+    {
+      "id": "mangaread",
+      "name": "MangaRead",
+      "lang": "en",
+      "baseUrl": "https://www.mangaread.org"
+    }
   ]
 }

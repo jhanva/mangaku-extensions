@@ -2,6 +2,7 @@ package com.mangaku.extension.mangaread
 
 import eu.kanade.tachiyomi.network.NetworkHelper
 import eu.kanade.tachiyomi.source.model.Page
+import eu.kanade.tachiyomi.source.model.SChapter
 import eu.kanade.tachiyomi.source.model.SManga
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
@@ -33,6 +34,8 @@ class MangaReadTest {
         fun popular(resp: Response) = popularMangaParse(resp)
         fun details(resp: Response) = mangaDetailsParse(resp)
         fun pages(resp: Response) = pageListParse(resp)
+        fun chapters(resp: Response) = chapterListParse(resp)
+        fun pageRequest(chapter: SChapter) = pageListRequest(chapter)
     }
 
     private fun response(url: String, html: String): Response = Response.Builder()
@@ -80,6 +83,66 @@ class MangaReadTest {
         assertEquals("One Piece", manga.title)
         assertEquals(SManga.ONGOING, manga.status)
         assertTrue(manga.genre!!.contains("Action"))
+    }
+
+    @Test
+    fun `chapter list guarda la url sin dominio para que baseUrl + url sea valida`() {
+        val html = """
+            <html><body>
+              <ul>
+                <li class="wp-manga-chapter">
+                  <a href="https://www.mangaread.org/manga/berserk/chapter-2/">Chapter 2</a>
+                  <span class="chapter-release-date">July 1, 2026</span>
+                </li>
+                <li class="wp-manga-chapter">
+                  <a href="https://www.mangaread.org/manga/berserk/chapter-1/">Chapter 1</a>
+                </li>
+              </ul>
+            </body></html>
+        """.trimIndent()
+
+        val chapters = TestMangaRead().chapters(response("https://www.mangaread.org/manga/berserk/", html))
+
+        assertEquals(2, chapters.size)
+        assertEquals("Chapter 2", chapters[0].name)
+        // La URL guardada NO debe llevar dominio: HttpSource antepone baseUrl al pedir las paginas
+        // (una URL absoluta acabaria en "https://www.mangaread.orghttps://..." y un fallo de DNS).
+        assertEquals("/manga/berserk/chapter-2/?style=list", chapters[0].url)
+    }
+
+    @Test
+    fun `pageListRequest tolera capitulos antiguos guardados con url absoluta`() {
+        val legacy = SChapter.create().apply {
+            url = "https://www.mangaread.org/manga/berserk/chapter-1/?style=list"
+        }
+        val relative = SChapter.create().apply { url = "/manga/berserk/chapter-1/?style=list" }
+
+        val source = TestMangaRead()
+
+        assertEquals(
+            "https://www.mangaread.org/manga/berserk/chapter-1/?style=list",
+            source.pageRequest(legacy).url.toString(),
+        )
+        assertEquals(
+            "https://www.mangaread.org/manga/berserk/chapter-1/?style=list",
+            source.pageRequest(relative).url.toString(),
+        )
+    }
+
+    @Test
+    fun `page list tolera src con saltos de linea como sirve mangaread`() {
+        // mangaread.org emite el atributo src con tabs y saltos de linea alrededor de la URL.
+        val html = "<html><body><div class=\"reading-content\">" +
+            "<div class=\"page-break no-gaps\"><img id=\"image-0\" src=\"\t\n\thttps://www.mangaread.org/wp-content/uploads/WP-manga/data/x/0.jpg\" class=\"wp-manga-chapter-img\"></div>" +
+            "</div></body></html>"
+
+        val pages = TestMangaRead().pages(response("https://www.mangaread.org/manga/x/ch-1/?style=list", html))
+
+        assertEquals(1, pages.size)
+        assertEquals(
+            "https://www.mangaread.org/wp-content/uploads/WP-manga/data/x/0.jpg",
+            pages[0].imageUrl,
+        )
     }
 
     @Test
