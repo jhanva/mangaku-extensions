@@ -1,6 +1,7 @@
 package com.mangaku.extension.senmanga
 
 import eu.kanade.tachiyomi.network.NetworkHelper
+import eu.kanade.tachiyomi.source.model.FilterList
 import okhttp3.OkHttpClient
 import okhttp3.Protocol
 import okhttp3.Request
@@ -44,6 +45,15 @@ class SenMangaTest {
         assertEquals("ワンピース", page.mangas[0].title)
         assertEquals("one-piece", page.mangas[0].url)
         assertTrue(page.hasNextPage)
+    }
+
+    @Test
+    fun `search request usa el parametro query de la API nueva`() {
+        // El sitio se reconstruyo como SPA en 2026: /api/directory ignora "s" y filtra con "query".
+        val request = SenManga().searchMangaRequest(page = 1, query = "naruto", filters = FilterList())
+
+        assertEquals("naruto", request.url.queryParameter("query"))
+        assertEquals(null, request.url.queryParameter("s"))
     }
 
     @Test

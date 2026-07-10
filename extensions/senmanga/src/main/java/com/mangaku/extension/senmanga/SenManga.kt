@@ -52,11 +52,12 @@ class SenManga : HttpSource() {
         return MangasPage(mangas, mangas.isNotEmpty())
     }
 
-    override fun searchMangaRequest(page: Int, query: String, filters: FilterList): Request {
+    public override fun searchMangaRequest(page: Int, query: String, filters: FilterList): Request {
         val url = "$apiUrl/directory".toHttpUrl().newBuilder()
             .addQueryParameter("page", page.toString())
         if (query.isNotBlank()) {
-            url.addQueryParameter("s", query)
+            // La API del sitio nuevo (SPA 2026) ignora "s"; el filtro por texto es "query".
+            url.addQueryParameter("query", query)
         }
         return GET(url.build(), headers)
     }
