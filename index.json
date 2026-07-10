@@ -95,8 +95,8 @@
     "pkg": "com.mangaku.extension.ja.senmanga",
     "apk": "com.mangaku.extension.ja.senmanga.apk",
     "lang": "ja",
-    "code": 1,
-    "version": "1.0.1",
+    "code": 2,
+    "version": "1.0.2",
     "nsfw": 0,
     "sources": [
       {
