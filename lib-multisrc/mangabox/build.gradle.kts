@@ -21,7 +21,7 @@ android {
     }
 }
 
-// Plantilla multisrc MangaBox (Manganato/MangaKakalot). Se BUNDLEA en cada extension que la use; el
+// Plantilla multisrc MangaBox (Manganato). Se BUNDLEA en cada extension que la use; el
 // contrato de API y Gson los provee la app anfitriona en runtime, por eso son compileOnly.
 dependencies {
     compileOnly(project(":core:tachiyomi-api"))

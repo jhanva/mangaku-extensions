@@ -64,7 +64,6 @@ jobs:
           :extensions:comick:assembleRelease
           :extensions:mangaread:assembleRelease
           :extensions:manganato:assembleRelease
-          :extensions:mangakakalot:assembleRelease
           :extensions:inmanga:assembleRelease
 
       - name: Generate catalog index

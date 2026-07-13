@@ -32,6 +32,5 @@ include(
     ":extensions:comick",
     ":extensions:mangaread",
     ":extensions:manganato",
-    ":extensions:mangakakalot",
     ":extensions:inmanga",
 )
