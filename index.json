@@ -40,23 +40,6 @@
     ]
   },
   {
-    "name": "Mangaku: Mangakakalot",
-    "pkg": "com.mangaku.extension.en.mangakakalot",
-    "apk": "com.mangaku.extension.en.mangakakalot.apk",
-    "lang": "en",
-    "code": 2,
-    "version": "1.0.1",
-    "nsfw": 0,
-    "sources": [
-      {
-        "id": "mangakakalot",
-        "name": "Mangakakalot",
-        "lang": "en",
-        "baseUrl": "https://www.mangakakalove.com"
-      }
-    ]
-  },
-  {
     "name": "Mangaku: Manganato",
     "pkg": "com.mangaku.extension.en.manganato",
     "apk": "com.mangaku.extension.en.manganato.apk",
