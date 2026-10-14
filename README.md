@@ -26,7 +26,7 @@ https://raw.githubusercontent.com/jhanva/mangaku-extensions/main
 ## Como anadir una extension
 
 1. Fuente directa (API/JSON o scraping simple): crea `extensions/<nombre>/` extendiendo
-   `HttpSource` (mira `senmanga` o `comick`).
+   `HttpSource` (mira `senmanga`, `weebcentral` o `inmanga`).
 2. Sitio de una familia con plantilla (WordPress Madara, MangaBox...): extiende la plantilla de
    `lib-multisrc/` y anade `implementation(project(":lib-multisrc:<tema>"))` (mira `mangaread` o
    `manganato`).

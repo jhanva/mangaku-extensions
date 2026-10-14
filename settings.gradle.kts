@@ -29,7 +29,6 @@ include(
     ":lib-multisrc:mangabox",
     ":extensions:weebcentral",
     ":extensions:senmanga",
-    ":extensions:comick",
     ":extensions:mangaread",
     ":extensions:manganato",
     ":extensions:inmanga",

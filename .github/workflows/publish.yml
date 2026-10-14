@@ -61,7 +61,6 @@ jobs:
           ./gradlew
           :extensions:weebcentral:assembleRelease
           :extensions:senmanga:assembleRelease
-          :extensions:comick:assembleRelease
           :extensions:mangaread:assembleRelease
           :extensions:manganato:assembleRelease
           :extensions:inmanga:assembleRelease
