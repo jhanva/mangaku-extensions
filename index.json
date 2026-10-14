@@ -1,28 +1,5 @@
 [
   {
-    "name": "Mangaku: ComicK",
-    "pkg": "com.mangaku.extension.comick",
-    "apk": "com.mangaku.extension.comick.apk",
-    "lang": "all",
-    "code": 2,
-    "version": "1.0.1",
-    "nsfw": 0,
-    "sources": [
-      {
-        "id": "comick-en",
-        "name": "ComicK",
-        "lang": "en",
-        "baseUrl": "https://comick.dev"
-      },
-      {
-        "id": "comick-es",
-        "name": "ComicK",
-        "lang": "es",
-        "baseUrl": "https://comick.dev"
-      }
-    ]
-  },
-  {
     "name": "Mangaku: InManga",
     "pkg": "com.mangaku.extension.es.inmanga",
     "apk": "com.mangaku.extension.es.inmanga.apk",
